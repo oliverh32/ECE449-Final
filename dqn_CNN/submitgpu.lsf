@@ -1,0 +1,11 @@
+#!/bin/sh
+#BSUB -q gpuq
+#BSUB -o %J.out
+#BSUB -e %J.err
+#BSUB -n 1
+#BSUB -a python
+#BSUB -R "select[ngpus>0] rusage [ngpus_shared=2]"
+
+CURDIR=$PWD
+cd $CURDIR
+python main.py

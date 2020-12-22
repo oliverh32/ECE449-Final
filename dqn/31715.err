@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "main.py", line 14, in <module>
+    from dqn_agent import Agent
+  File "/gpfsdata/home/xiyuezhu/ece449/course_project/dqn/dqn_agent.py", line 5, in <module>
+    from model import QNetwork
+  File "/gpfsdata/home/xiyuezhu/ece449/course_project/dqn/model.py", line 5, in <module>
+    class QNetwork(nn.Module):
+  File "/gpfsdata/home/xiyuezhu/ece449/course_project/dqn/model.py", line 8, in QNetwork
+    def __init__(self, state_size, action_size, seed, fc1_units=state_size*2, fc2_units=state_size*2):
+NameError: name 'state_size' is not defined
