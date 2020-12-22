@@ -55,7 +55,7 @@ def dqn(n_episodes=2000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.99
             next_state, reward, done, _ = env.step(action)
             next_state = next_state.transpose((2,0,1))
 
-            print("in main:", np.shape(next_state))
+            # print("in main:", np.shape(next_state))
             agent.step(state, action, reward, next_state, done)
             
             state = next_state
