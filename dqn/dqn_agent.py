@@ -37,6 +37,10 @@ class Agent():
         self.qnetwork_local = QNetwork(state_size, action_size, seed).to(device)
         self.qnetwork_target = QNetwork(state_size, action_size, seed).to(device)
         self.optimizer = optim.Adam(self.qnetwork_local.parameters(), lr=LR)
+        
+        if torch.cuda.is_available():
+            self.qnetwork_local = self.qnetwork_local.cuda()
+            self.qnetwork_target = self.qnetwork_target.cuda()
 
         # Replay memory
         self.memory = ReplayBuffer(action_size, BUFFER_SIZE, BATCH_SIZE, seed)

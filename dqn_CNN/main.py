@@ -5,7 +5,7 @@ import numpy as np
 from collections import deque
 
 ## make env
-env = gym.make('Breakout-ram-v0')
+env = gym.make('Breakout-v0')
 env.seed(0)
 print('State shape: ', env.observation_space.shape)
 print('Number of actions: ', env.action_space.n)
@@ -13,12 +13,14 @@ print('Number of actions: ', env.action_space.n)
 #make agent and test before train
 from dqn_agent import Agent
 
-agent = Agent(state_size= 128, action_size=4, seed=0)
+agent = Agent(state_size= (210,160,3), action_size=4, seed=0)
 
 # watch an untrained agent
 state = env.reset()
+
 score = 0
 for j in range(200):
+    state = state.transpose((2,0,1))
     action = agent.act(state)
     # env.render()
     state, reward, done, _ = env.step(action)
@@ -45,11 +47,17 @@ def dqn(n_episodes=2000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.99
     eps = eps_start                    # initialize epsilon
     for i_episode in range(1, n_episodes+1):
         state = env.reset()
+        state = state.transpose((2,0,1))
         score = 0
-        for t in range(max_t):
+
+        while 1:
             action = agent.act(state, eps)
             next_state, reward, done, _ = env.step(action)
+            next_state = next_state.transpose((2,0,1))
+
+            print("in main:", np.shape(next_state))
             agent.step(state, action, reward, next_state, done)
+            
             state = next_state
             score += reward
             if done:
@@ -79,6 +87,7 @@ for i in range(100):
     state = env.reset()
     score = 0
     for j in range(200):
+        state = state.transpose((2,0,1))
         action = agent.act(state)
         # env.render()
         state, reward, done, _ = env.step(action)

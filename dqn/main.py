@@ -18,7 +18,7 @@ agent = Agent(state_size= 128, action_size=4, seed=0)
 # watch an untrained agent
 state = env.reset()
 score = 0
-for j in range(200):
+while 1:
     action = agent.act(state)
     # env.render()
     state, reward, done, _ = env.step(action)
@@ -66,7 +66,7 @@ def dqn(n_episodes=2000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.99
             break
     return scores
 
-scores = dqn(200)
+scores = dqn(20000)
 ## outs:
 print("scores in training process",scores)
 
